@@ -13,6 +13,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -130,4 +138,20 @@ button:focus-visible {
   font-size: '1.5rem';
   margin: '20px 0';
   color: '#555';
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  /* Ensure it stays on top of other content */
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+.header.scrolled {
+  background-color: rgba(51, 51, 51, 0.8); /* Slightly transparent when scrolled */
 }
