@@ -78,8 +78,6 @@ button:focus-visible {
   }
 }
 
-
-
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
@@ -159,4 +157,39 @@ button:focus-visible {
   margin-right: 10px;
   transition: height 0.3s ease;
   /* Smooth scaling if needed */
+}
+
+.header .navbar-toggler-icon {
+  font-size: 1.5rem;
+  /* Ensure hamburger icon size consistency */
+}
+
+.header .navbar-toggler {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: currentColor;
+  font-size: 1.5rem;
+  height: 46px;
+  width: 62px;
+}
+
+.header .close-icon {
+  font-size: 1.5rem;
+  /* Match size of navbar-toggler-icon */
+  line-height: 1;
+  /* Ensure consistent alignment */
+
+}
+
+.collapse {
+  transition: height 0.4s ease;
+  /* Smooth height transition */
+  overflow: hidden;
+  /* Prevent content overflow during animation */
+}
+
+.collapse.show {
+  height: auto;
+  /* Set height to auto when expanded */
 }

@@ -1,20 +1,36 @@
 /* eslint-disable no-unused-vars */
 // src/components/Header.jsx
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../assets/logo.png'
+import logo from '../assets/logo.png';
 
 const Header = () => {
     const [isScrolled, setIsScrolled] = useState(false);
-
+    const [isNavOpen, setIsNavOpen] = useState(false);
+    const navRef = useRef(null);
+    const [navHeight, setNavHeight] = useState(0)
     useEffect(() => {
         const handleScroll = () => {
-            setIsScrolled(window.scrollY > 50); // Change 50 to your desired scroll threshold
+            setIsScrolled(window.scrollY > 50);
         };
 
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    useEffect(() => {
+        if (isNavOpen) {
+            setNavHeight(navRef.current.scrollHeight);
+            setIsNavOpen(true)
+        } else {
+            setNavHeight(0);
+            setIsNavOpen(false) // Set height to 0 on close
+        }
+    }, [isNavOpen]);
+
+    const handleToggle = () => {
+        setIsNavOpen((prev) => !prev);
+    };
 
     return (
         <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
@@ -26,15 +42,25 @@ const Header = () => {
                     <button
                         className="navbar-toggler"
                         type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#navbarNav"
-                        aria-controls="navbarNav"
-                        aria-expanded="false"
+                        onClick={handleToggle}
+                        aria-expanded={isNavOpen ? "true" : "false"}
                         aria-label="Toggle navigation"
                     >
-                        <span className="navbar-toggler-icon"></span>
+                        {isNavOpen ? (
+                            <i className="bi bi-x-lg close-icon"></i> // Bootstrap close icon
+                        ) : (
+                            <span className="navbar-toggler-icon"></span>
+                        )}
                     </button>
-                    <div className="collapse navbar-collapse" id="navbarNav">
+                    <div
+                        ref={navRef}
+                        className={`collapse navbar-collapse ${isNavOpen ? 'show' : ''}`}
+                        style={{
+                            height: isNavOpen ? `${navHeight}px` : '0',
+                            transition: 'height 0.5s ease',
+                            overflow: 'hidden',
+                        }}
+                        id="navbarNav">
                         <ul className="navbar-nav ms-auto">
                             <li className="nav-item">
                                 <Link to="/" className="nav-link">Home</Link>
