@@ -2,6 +2,7 @@
 // src/components/Header.jsx
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import logo from '../assets/logo.png'
 
 const Header = () => {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -19,7 +20,9 @@ const Header = () => {
         <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
             <div className="container-fluid">
                 <nav className="navbar navbar-expand-lg navbar-dark">
-                    <Link to="/" className="navbar-brand">My App</Link>
+                    <Link to="/" className="navbar-brand">
+                        <img src={logo} alt="logo" className="logo" />
+                    </Link>
                     <button
                         className="navbar-toggler"
                         type="button"
