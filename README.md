@@ -1,2 +1,2 @@
 # hydrofacial
-New application for hydrofacial tools with product details from Mongo DB
+New web application for products from skin care industry
