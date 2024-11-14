@@ -7,8 +7,7 @@ import logo from '../assets/logo.png';
 const Header = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isNavOpen, setIsNavOpen] = useState(false);
-    const navRef = useRef(null);
-    const [navHeight, setNavHeight] = useState(0)
+
     useEffect(() => {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 50);
@@ -17,16 +16,6 @@ const Header = () => {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
-
-    useEffect(() => {
-        if (isNavOpen) {
-            setNavHeight(navRef.current.scrollHeight);
-            setIsNavOpen(true)
-        } else {
-            setNavHeight(0);
-            setIsNavOpen(false) // Set height to 0 on close
-        }
-    }, [isNavOpen]);
 
     const handleToggle = () => {
         setIsNavOpen((prev) => !prev);
@@ -37,7 +26,7 @@ const Header = () => {
             <div className="container-fluid">
                 <nav className="navbar navbar-expand-lg navbar-dark">
                     <Link to="/" className="navbar-brand">
-                        <img src={logo} alt="logo" className="logo" />
+                        <img src={logo} alt="My App Logo" className="logo" />
                     </Link>
                     <button
                         className="navbar-toggler"
@@ -47,21 +36,16 @@ const Header = () => {
                         aria-label="Toggle navigation"
                     >
                         {isNavOpen ? (
-                            <i className="bi bi-x-lg close-icon"></i> // Bootstrap close icon
+                            <i className="bi bi-x-lg close-icon" style={{ color: 'rgb(146,146,146)' }}></i>
                         ) : (
                             <span className="navbar-toggler-icon"></span>
                         )}
                     </button>
                     <div
-                        ref={navRef}
                         className={`collapse navbar-collapse ${isNavOpen ? 'show' : ''}`}
-                        style={{
-                            height: isNavOpen ? `${navHeight}px` : '0',
-                            transition: 'height 0.5s ease',
-                            overflow: 'hidden',
-                        }}
-                        id="navbarNav">
-                        <ul className="navbar-nav ms-auto">
+                        id="navbarNav"
+                    >
+                        <ul className="navbar-nav">
                             <li className="nav-item">
                                 <Link to="/" className="nav-link">Home</Link>
                             </li>

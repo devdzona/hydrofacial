@@ -182,14 +182,32 @@ button:focus-visible {
 
 }
 
-.collapse {
-  transition: height 0.4s ease;
-  /* Smooth height transition */
-  overflow: hidden;
-  /* Prevent content overflow during animation */
+/* Desktop screens: No transition applied */
+.navbar-collapse {
+  display: flex !important;
+  /* Ensures navbar items display properly on desktop */
 }
 
-.collapse.show {
-  height: auto;
-  /* Set height to auto when expanded */
+@media (min-width: 991.98px) {
+  .navbar-nav {
+    margin-left: auto;
+  }
+}
+
+/* Mobile and tablet screens: Smooth transition */
+@media (max-width: 991.98px) {
+  .navbar-collapse {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.8s ease, opacity 0.8s ease;
+  }
+
+  .navbar-collapse.show {
+    max-height: 500px;
+    /* Set to fit your content, ensuring smooth opening */
+    opacity: 1;
+    transition: max-height 1.2s ease-in-out, opacity 0.9s ease-in-out;
+    /* Slightly slower transition for a smooth opening */
+  }
 }
