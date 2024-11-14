@@ -10,7 +10,7 @@ const ProductCard = ({ product }) => (
         <h3>{product.name}</h3>
         <p>{product.description}</p>
         <p>${product.price}</p>
-        <Link to={`/product/${product._id}`}>View Details</Link>
+        <Link to={`/product/${product.slug}`}>View Details</Link>
     </div>
 );
 
@@ -18,6 +18,7 @@ const ProductCard = ({ product }) => (
 ProductCard.propTypes = {
     product: PropTypes.shape({
         _id: PropTypes.string.isRequired,
+        slug: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         description: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,

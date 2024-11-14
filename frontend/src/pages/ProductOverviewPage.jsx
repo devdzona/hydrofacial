@@ -24,7 +24,7 @@ const ProductOverviewPage = () => {
             <h1>Product Overview</h1>
             <div className="product-list">
                 {products.map(product => (
-                    <ProductCard key={product._id} product={product} />
+                    <ProductCard key={product.slug} product={product} />
                 ))}
             </div>
         </div>

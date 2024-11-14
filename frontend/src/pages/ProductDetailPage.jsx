@@ -4,13 +4,13 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const ProductDetailPage = () => {
-  const { id } = useParams();
+  const { slug } = useParams();
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:5000/api/products/${id}`);
+        const { data } = await axios.get(`http://localhost:5000/api/products/${slug}`);
         setProduct(data);
       } catch (error) {
         console.error('Error fetching product:', error);
@@ -18,7 +18,7 @@ const ProductDetailPage = () => {
     };
 
     fetchProduct();
-  }, [id]);
+  }, [slug]);
 
   if (!product) return <p>Loading...</p>;
 

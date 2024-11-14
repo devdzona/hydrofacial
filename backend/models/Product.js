@@ -6,6 +6,11 @@ const ProductSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  slug: {
+    type: String,
+    required: true,
+    unique: true
+  },
   description: {
     type: String,
     required: true,
@@ -29,6 +34,15 @@ const ProductSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+});
+
+// Generate the slug from the name before saving
+ProductSchema.pre('save', function (next) {
+  this.slug = this.name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-') // Replace spaces and special chars with dashes
+    .replace(/(^-|-$)/g, ''); // Remove starting/ending dashes
+  next();
 });
 
 export default mongoose.model('Product', ProductSchema);
