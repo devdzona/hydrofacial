@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
-// src/components/Header.jsx
-import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import logo from '../assets/logo.png';
 
 const Header = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isNavOpen, setIsNavOpen] = useState(false);
+    const location = useLocation(); // Hook to detect location changes
 
     useEffect(() => {
         const handleScroll = () => {
@@ -16,6 +16,11 @@ const Header = () => {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    // Close the navbar on location change
+    useEffect(() => {
+        setIsNavOpen(false);
+    }, [location]);
 
     const handleToggle = () => {
         setIsNavOpen((prev) => !prev);
@@ -47,13 +52,13 @@ const Header = () => {
                     >
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                <Link to="/" className="nav-link">Home</Link>
+                                <Link to="/" className="nav-link" onClick={() => setIsNavOpen(false)}>Home</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to="/about" className="nav-link">About</Link>
+                                <Link to="/about" className="nav-link" onClick={() => setIsNavOpen(false)}>About</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to="/products" className="nav-link">Products</Link>
+                                <Link to="/products" className="nav-link" onClick={() => setIsNavOpen(false)}>Products</Link>
                             </li>
                         </ul>
                     </div>

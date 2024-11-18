@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
 });
 
 // Get product by slug
-router.get('/products/:slug', async (req, res) => {
+router.get('/:slug', async (req, res) => {
   try {
     const product = await Product.findOne({ slug: req.params.slug });
     if (!product) {

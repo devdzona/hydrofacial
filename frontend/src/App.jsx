@@ -21,7 +21,7 @@ function App() {
         <main className="flex-grow-1 container py-4">
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/product/:id" element={<ProductDetailPage />} />
+            <Route path="/product/:slug" element={<ProductDetailPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/products" element={<ProductOverviewPage />} />
             <Route path="*" element={<NotFoundPage />} />
