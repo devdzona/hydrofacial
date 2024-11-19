@@ -1,47 +1,55 @@
 import mongoose from 'mongoose';
+import slugify from 'slugify';
 
 const ProductSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
     trim: true,
-  },
-  slug: {
-    type: String,
-    required: true,
-    unique: true
+    required: [true, 'Product name is required']
   },
   description: {
     type: String,
-    required: true,
     trim: true,
+    required: [true, 'Product description is required']
   },
   price: {
     type: Number,
-    required: true,
     min: 0,
+    required: [true, 'Product price is required']
   },
   image: {
     type: String,
-    required: true,
+    required: [true, 'Product image is required']
   },
   category: {
     type: String,
-    required: true,
     trim: true,
+    required: [true, 'Product category is required']
+  },
+  slug: {
+    type: String,
+    unique: true // Ensure slug is unique
   },
   createdAt: {
     type: Date,
-    default: Date.now,
-  },
+    unique: true,
+    default: Date.now
+  }
 });
 
-// Generate the slug from the name before saving
-ProductSchema.pre('save', function (next) {
-  this.slug = this.name
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-') // Replace spaces and special chars with dashes
-    .replace(/(^-|-$)/g, ''); // Remove starting/ending dashes
+// Pre-save middleware to generate slug from name
+ProductSchema.pre('save', async function (next) {
+  if (!this.slug && this.name) {
+    let slug = slugify(this.name, { lower: true, strict: true });
+
+    // Check for existing slugs in the database
+    const existingProduct = await mongoose.models.Product.findOne({ slug });
+    if (existingProduct) {
+      slug = `${slug}-2`;
+    }
+
+    this.slug = slug;
+  }
   next();
 });
 

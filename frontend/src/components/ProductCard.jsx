@@ -4,17 +4,16 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const ProductCard = ({ product }) => (
-    <div className="product-card">
-        <img src={product.image} alt={product.name} className="product-card-image" />
-        <div className="product-card-content">
+    <Link to={`/product/${product.slug}`} className="product-card-link-wrapper">
+        <div className="product-card">
+            <img src={product.image} alt={product.name} className="product-card-image" />
             <h3 className="product-card-title">{product.name}</h3>
-            <p className="product-card-description">{product.description}</p>
-            <p className="product-card-price">${product.price}</p>
-            <Link to={`/product/${product.slug}`} className="product-card-link">
-                View Details
-            </Link>
+            <div className="product-card-content">
+                <p className="product-card-description">{product.description}</p>
+                <p className="product-card-price">${product.price}</p>
+            </div>
         </div>
-    </div>
+    </Link>
 );
 
 // Define PropTypes for validation
