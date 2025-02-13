@@ -212,12 +212,15 @@ button:focus-visible {
 
 /* Hero Teaser */
 .hero-teaser {
-  width: 100%;
+  width: 100vw;
+  /* Full viewport width */
+  margin-left: calc(-50vw + 50%);
+  /* Centers the full-width element */
   height: 400px;
+  /* Adjust height as needed */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  position: relative;
 }
 
 .hero-content {

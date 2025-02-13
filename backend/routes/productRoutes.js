@@ -1,10 +1,19 @@
 import express from 'express';
+import { body, validationResult } from 'express-validator';
+import rateLimit from 'express-rate-limit';
 import Product from '../models/Product.js';
 
 const router = express.Router();
 
+// Create a rate limiter for product routes
+const productLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per windowMs
+  message: 'Too many requests from this IP, please try again after 15 minutes.'
+});
+
 // GET all products
-router.get('/', async (req, res) => {
+router.get('/', productLimiter, async (req, res) => {
   try {
     const products = await Product.find();
     res.json(products);
@@ -15,7 +24,7 @@ router.get('/', async (req, res) => {
 });
 
 // GET product by slug
-router.get('/:slug', async (req, res) => {
+router.get('/:slug', productLimiter, async (req, res) => {
   try {
     const product = await Product.findOne({ slug: req.params.slug });
     if (!product) {
@@ -28,29 +37,60 @@ router.get('/:slug', async (req, res) => {
   }
 });
 
-// POST a new product
-router.post('/', async (req, res) => {
-  const { name, description, price, image, category } = req.body;
+// POST a new product with input validation and sanitization
+router.post(
+  '/',
+  productLimiter,
+  [
+    body('name')
+      .trim()
+      .notEmpty()
+      .withMessage('Product name is required'),
+    body('description')
+      .trim()
+      .notEmpty()
+      .withMessage('Product description is required'),
+    body('price')
+      .isNumeric()
+      .withMessage('Product price must be a number'),
+    body('image')
+      .trim()
+      .notEmpty()
+      .withMessage('Product image is required'),
+    body('category')
+      .trim()
+      .notEmpty()
+      .withMessage('Product category is required'),
+  ],
+  async (req, res) => {
+    // Validate inputs
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
 
-  const newProduct = new Product({
-    name,
-    description,
-    price,
-    image,
-    category,
-  });
+    const { name, description, price, image, category } = req.body;
 
-  try {
-    const savedProduct = await newProduct.save();
-    res.status(201).json(savedProduct);
-  } catch (error) {
-    console.error('Error creating product:', error);
-    res.status(400).json({ message: error.message });
+    const newProduct = new Product({
+      name,
+      description,
+      price,
+      image,
+      category,
+    });
+
+    try {
+      const savedProduct = await newProduct.save();
+      res.status(201).json(savedProduct);
+    } catch (error) {
+      console.error('Error creating product:', error);
+      res.status(400).json({ message: error.message });
+    }
   }
-});
+);
 
 // PATCH update product by ID
-router.patch('/:id', async (req, res) => {
+router.patch('/:id', productLimiter, async (req, res) => {
   const { id } = req.params;
   const updateData = req.body;
 
@@ -72,7 +112,7 @@ router.patch('/:id', async (req, res) => {
 });
 
 // DELETE product by ID
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', productLimiter, async (req, res) => {
   const { id } = req.params;
 
   try {

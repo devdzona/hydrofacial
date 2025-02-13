@@ -3,10 +3,14 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import connectDB from './config/db.js';
 import productRoutes from './routes/productRoutes.js';
+import helmet from 'helmet';
 
 dotenv.config();
 
 const app = express();
+
+// Use Helmet for secure HTTP headers
+app.use(helmet());
 
 // Middleware
 app.use(express.json());

@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Helmet } from 'react-helmet-async';
 import ProductCard from '../components/ProductCard';
 import HeroTeaser from '../components/HeroTeaser';
 import HeroImage from '../assets/hero-placeholder.jpg';
@@ -33,6 +34,18 @@ const ProductOverviewPage = () => {
 
     return (
         <div className="home-page">
+            {/* Helmet meta tags for additional security (Testing purposes only)
+          - 'http://localhost:5000' in connect-src is allowed for local API calls.
+          - 'data:' is allowed in img-src for inline images.
+          Remove these allowances or adjust them for production. */}
+            <Helmet>
+                <meta
+                    httpEquiv="Content-Security-Policy"
+                    content="default-src 'self'; connect-src 'self' http://localhost:5000; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://fastly.picsum.photos;"
+                />
+                <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
+                <meta name="Referrer-Policy" content="no-referrer" />
+            </Helmet>
             <HeroTeaser
                 image={HeroImage}
                 heading="Product overview"

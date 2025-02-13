@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import slugify from 'slugify';
+import sanitizeHtml from 'sanitize-html';
 
 const ProductSchema = new mongoose.Schema({
   name: {
@@ -36,19 +37,26 @@ const ProductSchema = new mongoose.Schema({
   },
 });
 
-// Pre-save middleware to generate/update slug from name if modified or not set
+// Pre-save middleware to generate/update slug and sanitize inputs
 ProductSchema.pre('save', async function (next) {
+  // Generate/update slug from name if name is modified or slug is missing
   if (this.isModified('name') || !this.slug) {
-    let slug = slugify(this.name, { lower: true, strict: true });
+    let generatedSlug = slugify(this.name, { lower: true, strict: true });
 
-    // Check for existing products with the same slug
-    const existingProduct = await mongoose.models.Product.findOne({ slug });
+    // Check if the generated slug already exists
+    const existingProduct = await mongoose.models.Product.findOne({ slug: generatedSlug });
     if (existingProduct) {
-      slug = `${slug}-2`;
+      generatedSlug = `${generatedSlug}-2`;
     }
-
-    this.slug = slug;
+    this.slug = generatedSlug;
   }
+
+  // Sanitize fields to remove any unwanted HTML or scripts
+  // Allowed tags are empty arrays so that all HTML is stripped
+  this.name = sanitizeHtml(this.name, { allowedTags: [] });
+  this.description = sanitizeHtml(this.description, { allowedTags: [] });
+  this.category = sanitizeHtml(this.category, { allowedTags: [] });
+
   next();
 });
 
