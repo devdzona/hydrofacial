@@ -6,18 +6,20 @@ import logo from '../assets/logo.png';
 const Header = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isNavOpen, setIsNavOpen] = useState(false);
-    const location = useLocation(); // Hook to detect location changes
+    const location = useLocation();
 
+    // Update header style on scroll
     useEffect(() => {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 50);
         };
 
         window.addEventListener('scroll', handleScroll);
+        // Cleanup event listener on component unmount
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Close the navbar on location change
+    // Close the navbar when the route changes
     useEffect(() => {
         setIsNavOpen(false);
     }, [location]);
@@ -37,7 +39,7 @@ const Header = () => {
                         className="navbar-toggler"
                         type="button"
                         onClick={handleToggle}
-                        aria-expanded={isNavOpen ? "true" : "false"}
+                        aria-expanded={isNavOpen}
                         aria-label="Toggle navigation"
                     >
                         {isNavOpen ? (
@@ -46,19 +48,22 @@ const Header = () => {
                             <span className="navbar-toggler-icon"></span>
                         )}
                     </button>
-                    <div
-                        className={`collapse navbar-collapse ${isNavOpen ? 'show' : ''}`}
-                        id="navbarNav"
-                    >
+                    <div className={`collapse navbar-collapse ${isNavOpen ? 'show' : ''}`} id="navbarNav">
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                <Link to="/" className="nav-link" onClick={() => setIsNavOpen(false)}>Home</Link>
+                                <Link to="/" className="nav-link" onClick={() => setIsNavOpen(false)}>
+                                    Home
+                                </Link>
                             </li>
                             <li className="nav-item">
-                                <Link to="/about" className="nav-link" onClick={() => setIsNavOpen(false)}>About</Link>
+                                <Link to="/about" className="nav-link" onClick={() => setIsNavOpen(false)}>
+                                    About
+                                </Link>
                             </li>
                             <li className="nav-item">
-                                <Link to="/products" className="nav-link" onClick={() => setIsNavOpen(false)}>Products</Link>
+                                <Link to="/products" className="nav-link" onClick={() => setIsNavOpen(false)}>
+                                    Products
+                                </Link>
                             </li>
                         </ul>
                     </div>

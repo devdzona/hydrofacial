@@ -1,12 +1,15 @@
 :root {
+  /* Font & Basic settings */
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
+  /* Color scheme and background */
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
 
+  /* Font smoothing & rendering */
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -63,6 +66,7 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+/* Light mode overrides */
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -78,6 +82,7 @@ button:focus-visible {
   }
 }
 
+/* Logo hover effects */
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
@@ -86,6 +91,7 @@ button:focus-visible {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
+/* Logo spin animation */
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
@@ -102,6 +108,7 @@ button:focus-visible {
   }
 }
 
+/* Cards and simple elements */
 .card {
   padding: 2em;
 }
@@ -110,34 +117,36 @@ button:focus-visible {
   color: #888;
 }
 
+/* Not Found Page */
 .not-found-page {
-  display: 'flex';
-  flex-direction: 'column';
-  align-items: 'center';
-  justify-content: 'center';
-  height: '100vh';
-  text-align: 'center';
-  background-color: '#f4f6f8';
-  color: '#333';
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+  background-color: #f4f6f8;
+  color: #333;
 }
 
+/* Title and Message */
 .title {
-  font-size: '6rem';
+  font-size: 6rem;
   margin: 0;
-  color: '#ff6b6b',
+  color: #ff6b6b;
 }
 
 .message {
-  font-size: '1.5rem';
-  margin: '20px 0';
-  color: '#555';
+  font-size: 1.5rem;
+  margin: 20px 0;
+  color: #555;
 }
 
+/* Header & Navigation */
 .header {
   position: sticky;
   top: 0;
   z-index: 1000;
-  /* Ensure it stays on top of other content */
   background-color: #333;
   color: #fff;
   padding: 10px 20px;
@@ -147,21 +156,17 @@ button:focus-visible {
 
 .header.scrolled {
   background-color: rgba(51, 51, 51, 0.8);
-  /* Slightly transparent when scrolled */
 }
 
 .header .logo {
   height: 40px;
-  /* Adjust as needed */
   width: auto;
   margin-right: 10px;
   transition: height 0.3s ease;
-  /* Smooth scaling if needed */
 }
 
 .header .navbar-toggler-icon {
   font-size: 1.5rem;
-  /* Ensure hamburger icon size consistency */
 }
 
 .header .navbar-toggler {
@@ -176,16 +181,12 @@ button:focus-visible {
 
 .header .close-icon {
   font-size: 1.5rem;
-  /* Match size of navbar-toggler-icon */
   line-height: 1;
-  /* Ensure consistent alignment */
-
 }
 
-/* Desktop screens: No transition applied */
+/* Navbar for Desktop & Mobile */
 .navbar-collapse {
   display: flex !important;
-  /* Ensures navbar items display properly on desktop */
 }
 
 @media (min-width: 991.98px) {
@@ -194,7 +195,6 @@ button:focus-visible {
   }
 }
 
-/* Mobile and tablet screens: Smooth transition */
 @media (max-width: 991.98px) {
   .navbar-collapse {
     max-height: 0;
@@ -205,35 +205,24 @@ button:focus-visible {
 
   .navbar-collapse.show {
     max-height: 500px;
-    /* Set to fit your content, ensuring smooth opening */
     opacity: 1;
     transition: max-height 1.2s ease-in-out, opacity 0.9s ease-in-out;
-    /* Slightly slower transition for a smooth opening */
   }
 }
 
-/* src/components/HeroTeaser.css */
-
-/* Hero Teaser Container */
+/* Hero Teaser */
 .hero-teaser {
   width: 100%;
-  /* Full width */
   height: 400px;
-  /* Fixed height */
   background-size: cover;
-  /* Cover the entire container */
   background-position: center;
-  /* Center the image */
   background-repeat: no-repeat;
   position: relative;
-  /* Adjust to match your navbar's height if fixed */
 }
 
-/* Hero Content */
 .hero-content {
   position: relative;
   z-index: 1;
-  /* Ensure text appears above the background */
   color: white;
   text-align: center;
   padding: 1rem;
@@ -255,7 +244,6 @@ button:focus-visible {
   font-weight: 300;
 }
 
-/* Responsive Styles */
 @media (max-width: 768px) {
   .hero-content h1 {
     font-size: 2rem;
@@ -276,19 +264,14 @@ button:focus-visible {
   }
 }
 
-
-/* Product List - Container for Product Cards */
+/* Product List & Cards */
 .product-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  /* Responsive grid */
   gap: 16px;
-  /* Spacing between cards */
   padding: 16px;
-  /* Optional padding around the container */
 }
 
-/* Product Card */
 .product-card {
   display: flex;
   flex-direction: column;
@@ -299,6 +282,9 @@ button:focus-visible {
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 16px;
+  height: 350px;
+  /* Fixed height */
+  overflow: hidden;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
@@ -307,39 +293,49 @@ button:focus-visible {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* Product Card - Image */
-.product-card img {
+/* Product Card - Image, Title, Description, Price */
+.product-card-image {
   width: 100%;
-  /* Make the image responsive */
-  height: auto;
+  height: 150px;
+  object-fit: cover;
   border-radius: 8px;
   margin-bottom: 16px;
-  object-fit: cover;
 }
 
-/* Product Card - Title */
-.product-card h3 {
+.product-card-title {
   font-size: 1.25rem;
   margin: 8px 0;
   color: #333;
-}
-
-/* Product Card - Description */
-.product-card p {
-  font-size: 1rem;
-  color: #666;
-  margin: 8px 0;
   text-align: center;
 }
 
-/* Product Card - Price */
-.product-card p:last-of-type {
+.product-card-description {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 8px 0;
+  text-align: center;
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.product-card-price {
   font-size: 1.25rem;
   font-weight: bold;
   color: #000;
+  margin: 8px 0;
 }
 
-/* Product Card - Link */
+/* Link wrapping the product card */
+.product-card-link-wrapper {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+/* Product Card - Link Button */
 .product-card a {
   display: inline-block;
   margin-top: 12px;
@@ -356,19 +352,16 @@ button:focus-visible {
   background-color: #0056b3;
 }
 
-/* Mobile (Small Screens) */
+/* Mobile adjustments for Product List */
 @media (max-width: 480px) {
   .product-list {
     display: flex;
-    /* Use flexbox for stacking */
     flex-direction: column;
-    /* Stack items vertically */
     gap: 12px;
   }
 
   .product-card {
     width: 100%;
-    /* Full width on mobile */
   }
 
   .product-card h3 {
@@ -378,111 +371,11 @@ button:focus-visible {
   .product-card p {
     font-size: 0.9rem;
   }
-
 }
 
+/* Additional layout for card content */
 .product-card-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-/* Product Card Wrapper Link */
-.product-card-link-wrapper {
-  text-decoration: none;
-  /* Remove underline from the link */
-  color: inherit;
-  /* Inherit text color from parent */
-  display: block;
-  /* Ensure the link covers the entire card */
-}
-
-.product-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 16px;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-}
-
-.product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-/* Product Card */
-.product-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 16px;
-  height: 350px;
-  /* Fixed height for the card */
-  overflow: hidden;
-  /* Ensures content does not overflow the card */
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-}
-
-.product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-/* Image */
-.product-card-image {
-  width: 100%;
-  height: 150px;
-  /* Fixed height for image */
-  object-fit: cover;
-  /* Ensures the image fits within the fixed height */
-  border-radius: 8px;
-  margin-bottom: 16px;
-}
-
-/* Title */
-.product-card-title {
-  font-size: 1.25rem;
-  margin: 8px 0;
-  color: #333;
-  text-align: center;
-}
-
-/* Description */
-.product-card-description {
-  font-size: 0.9rem;
-  color: #666;
-  margin: 8px 0;
-  text-align: center;
-  display: -webkit-box;
-  /* Enables truncating long text */
-  line-clamp: 3;
-  -webkit-line-clamp: 3;
-  /* Show only 3 lines */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* Price */
-.product-card-price {
-  font-size: 1.25rem;
-  font-weight: bold;
-  color: #000;
-  margin: 8px 0;
-}
-
-/* Wrapper Link */
-.product-card-link-wrapper {
-  text-decoration: none;
-  color: inherit;
-  display: block;
 }

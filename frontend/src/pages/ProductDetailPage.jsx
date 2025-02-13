@@ -6,20 +6,23 @@ import axios from 'axios';
 const ProductDetailPage = () => {
   const { slug } = useParams();
   const [product, setProduct] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const { data } = await axios.get(`http://localhost:5000/api/products/${slug}`);
         setProduct(data);
-      } catch (error) {
-        console.error('Error fetching product:', error);
+      } catch (err) {
+        console.error('Error fetching product:', err);
+        setError('Failed to load product. Please try again later.');
       }
     };
 
     fetchProduct();
   }, [slug]);
 
+  if (error) return <p>{error}</p>;
   if (!product) return <p>Loading...</p>;
 
   return (

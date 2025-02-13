@@ -12,10 +12,12 @@ import Footer from './components/Footer';
 function App() {
   return (
     <Router
+      // The "future" prop enables experimental features for upcoming versions of React Router.
       future={{
         v7_startTransition: true,
         v7_relativeSplatPath: true,
-      }}>
+      }}
+    >
       <div className="d-flex flex-column min-vh-100">
         <Header />
         <main className="flex-grow-1 container py-4">

@@ -3,17 +3,18 @@ import Product from '../models/Product.js';
 
 const router = express.Router();
 
-// Get all products
+// GET all products
 router.get('/', async (req, res) => {
   try {
     const products = await Product.find();
     res.json(products);
   } catch (error) {
+    console.error('Error fetching products:', error);
     res.status(500).json({ message: error.message });
   }
 });
 
-// Get product by slug
+// GET product by slug
 router.get('/:slug', async (req, res) => {
   try {
     const product = await Product.findOne({ slug: req.params.slug });
@@ -22,11 +23,12 @@ router.get('/:slug', async (req, res) => {
     }
     res.json(product);
   } catch (error) {
+    console.error('Error fetching product by slug:', error);
     res.status(500).json({ message: 'Server error' });
   }
 });
 
-// Add a new product
+// POST a new product
 router.post('/', async (req, res) => {
   const { name, description, price, image, category } = req.body;
 
@@ -42,11 +44,12 @@ router.post('/', async (req, res) => {
     const savedProduct = await newProduct.save();
     res.status(201).json(savedProduct);
   } catch (error) {
+    console.error('Error creating product:', error);
     res.status(400).json({ message: error.message });
   }
 });
 
-// Update product by ID
+// PATCH update product by ID
 router.patch('/:id', async (req, res) => {
   const { id } = req.params;
   const updateData = req.body;
@@ -54,7 +57,7 @@ router.patch('/:id', async (req, res) => {
   try {
     const updatedProduct = await Product.findByIdAndUpdate(id, updateData, {
       new: true,           // Return the updated document
-      runValidators: true  // Ensure validations are applied
+      runValidators: true, // Apply schema validations
     });
 
     if (!updatedProduct) {
@@ -63,12 +66,12 @@ router.patch('/:id', async (req, res) => {
 
     res.json(updatedProduct);
   } catch (error) {
+    console.error('Error updating product:', error);
     res.status(400).json({ message: error.message });
   }
 });
 
-
-// Delete product by ID
+// DELETE product by ID
 router.delete('/:id', async (req, res) => {
   const { id } = req.params;
 
@@ -81,6 +84,7 @@ router.delete('/:id', async (req, res) => {
 
     res.json({ message: 'Product deleted successfully' });
   } catch (error) {
+    console.error('Error deleting product:', error);
     res.status(500).json({ message: error.message });
   }
 });
