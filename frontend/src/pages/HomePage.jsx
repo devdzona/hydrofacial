@@ -2,7 +2,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import HeroTeaser from '../components/HeroTeaser';
-import HeroImage from '../assets/hero-placeholder.jpg';
+import HeroImage from '../assets/heroImage.jpg';
 
 const HomePage = () => {
   return (

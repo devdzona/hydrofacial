@@ -14,7 +14,7 @@ function App() {
   return (
     <HelmetProvider>
       <Helmet>
-        <title>My MERN App</title>
+        <title>LUX SKIN APARATI</title>
         {/*
           Testing Purposes Only:
           - 'http://localhost:5000' is allowed in connect-src to enable local API calls.

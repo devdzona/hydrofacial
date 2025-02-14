@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Helmet } from 'react-helmet-async';
 import ProductCard from '../components/ProductCard';
 import HeroTeaser from '../components/HeroTeaser';
-import HeroImage from '../assets/hero-placeholder.jpg';
+import HeroImage from '../assets/heroImage.jpg';
 
 const ProductOverviewPage = () => {
     const [products, setProducts] = useState([]);
