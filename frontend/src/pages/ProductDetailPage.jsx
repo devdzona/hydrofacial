@@ -11,7 +11,7 @@ const ProductDetailPage = () => {
   const [error, setError] = useState(null);
 
   // Use an environment variable if available, otherwise default to localhost
-  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+  const apiUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -36,18 +36,18 @@ const ProductDetailPage = () => {
   return (
     <div className="product-detail-page container">
       <Helmet>
-        <title>{product.name} | My MERN App</title>
+        <title>{product.name} | LUX SKIN Aparati</title>
       </Helmet>
       <div className="row align-items-center py-4">
         <div className="col-md-6">
-          <img src={product.image} alt={product.name} className="img-fluid" />
+          {/* Use relative URL for the image */}
+          <img src={`/${product.image}`} alt={product.name} className="img-fluid" />
         </div>
         <div className="col-md-6">
           <h1>{product.name}</h1>
           <p className="text-muted">{product.category}</p>
           <h2>${product.price}</h2>
           <p>{product.description}</p>
-          {/* Additional product details or action buttons can be added here */}
         </div>
       </div>
     </div>

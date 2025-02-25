@@ -37,6 +37,14 @@ const ProductSchema = new mongoose.Schema({
   },
 });
 
+// Optional virtual to construct a full URL for the image.
+
+// Uncomment and set process.env.BASE_URL if you wish to serve images using a base URL.
+
+ProductSchema.virtual('imageUrl').get(function () {
+  return `${'http://localhost:5000'}/${this.image}`;
+});
+
 // Pre-save middleware to generate/update slug and sanitize inputs
 ProductSchema.pre('save', async function (next) {
   // Generate/update slug from name if name is modified or slug is missing

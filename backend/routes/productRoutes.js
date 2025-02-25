@@ -1,6 +1,7 @@
 import express from 'express';
 import { body, validationResult } from 'express-validator';
 import rateLimit from 'express-rate-limit';
+import multer from 'multer';
 import Product from '../models/Product.js';
 
 const router = express.Router();
@@ -11,6 +12,20 @@ const productLimiter = rateLimit({
   max: 100, // Limit each IP to 100 requests per windowMs
   message: 'Too many requests from this IP, please try again after 15 minutes.'
 });
+
+// Configure Multer storage
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    // Ensure that the 'uploads' folder exists in your project root
+    cb(null, 'uploads/');
+  },
+  filename: (req, file, cb) => {
+    // Create a unique filename using a timestamp and the original file name
+    cb(null, Date.now() + '-' + file.originalname);
+  },
+});
+
+const upload = multer({ storage });
 
 // GET all products
 router.get('/', productLimiter, async (req, res) => {
@@ -37,10 +52,11 @@ router.get('/:slug', productLimiter, async (req, res) => {
   }
 });
 
-// POST a new product with input validation and sanitization
+// POST a new product with input validation, file upload, and sanitization
 router.post(
   '/',
   productLimiter,
+  upload.single('image'),
   [
     body('name')
       .trim()
@@ -53,10 +69,7 @@ router.post(
     body('price')
       .isNumeric()
       .withMessage('Product price must be a number'),
-    body('image')
-      .trim()
-      .notEmpty()
-      .withMessage('Product image is required'),
+    // Removed body('image') validation since the image is handled by Multer
     body('category')
       .trim()
       .notEmpty()
@@ -69,7 +82,13 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { name, description, price, image, category } = req.body;
+    // Check if a file was uploaded
+    if (!req.file) {
+      return res.status(400).json({ message: 'Product image is required' });
+    }
+
+    const { name, description, price, category } = req.body;
+    const image = req.file.path; // Get the file path from Multer
 
     const newProduct = new Product({
       name,
@@ -89,10 +108,15 @@ router.post(
   }
 );
 
-// PATCH update product by ID
-router.patch('/:id', productLimiter, async (req, res) => {
+// PATCH update product by ID with optional image upload
+router.patch('/:id', productLimiter, upload.single('image'), async (req, res) => {
   const { id } = req.params;
-  const updateData = req.body;
+  const updateData = { ...req.body };
+
+  // If a new image file is uploaded, update the image field
+  if (req.file) {
+    updateData.image = req.file.path;
+  }
 
   try {
     const updatedProduct = await Product.findByIdAndUpdate(id, updateData, {

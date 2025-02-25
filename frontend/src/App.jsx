@@ -37,7 +37,7 @@ function App() {
       >
         <div className="d-flex flex-column min-vh-100">
           <Header />
-          <main className="flex-grow-1 container py-4">
+          <main className="flex-grow-1 container pb-4 pt-0">
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/product/:slug" element={<ProductDetailPage />} />
