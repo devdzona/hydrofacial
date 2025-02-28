@@ -18,9 +18,15 @@ const ProductSchema = new mongoose.Schema({
     min: 0,
     required: [true, 'Product price is required'],
   },
-  image: {
-    type: String,
-    required: [true, 'Product image is required'],
+  images: {
+    type: [String],
+    required: [true, 'Product images are required'],
+    validate: {
+      validator: function (v) {
+        return v && v.length > 0;
+      },
+      message: 'At least one image is required',
+    },
   },
   category: {
     type: String,
@@ -29,7 +35,7 @@ const ProductSchema = new mongoose.Schema({
   },
   slug: {
     type: String,
-    unique: true, // Ensure slug is unique
+    unique: true,
   },
   createdAt: {
     type: Date,
@@ -37,17 +43,13 @@ const ProductSchema = new mongoose.Schema({
   },
 });
 
-// Optional virtual to construct a full URL for the image.
-
-// Uncomment and set process.env.BASE_URL if you wish to serve images using a base URL.
-
-ProductSchema.virtual('imageUrl').get(function () {
-  return `${'http://localhost:5000'}/${this.image}`;
+// Virtual to construct full URLs for each image
+ProductSchema.virtual('imageUrls').get(function () {
+  return this.images.map(img => `http://localhost:5000/${img}`);
 });
 
 // Pre-save middleware to generate/update slug and sanitize inputs
 ProductSchema.pre('save', async function (next) {
-  // Generate/update slug from name if name is modified or slug is missing
   if (this.isModified('name') || !this.slug) {
     let generatedSlug = slugify(this.name, { lower: true, strict: true });
 
@@ -59,8 +61,7 @@ ProductSchema.pre('save', async function (next) {
     this.slug = generatedSlug;
   }
 
-  // Sanitize fields to remove any unwanted HTML or scripts
-  // Allowed tags are empty arrays so that all HTML is stripped
+  // Sanitize fields to remove unwanted HTML or scripts
   this.name = sanitizeHtml(this.name, { allowedTags: [] });
   this.description = sanitizeHtml(this.description, { allowedTags: [] });
   this.category = sanitizeHtml(this.category, { allowedTags: [] });

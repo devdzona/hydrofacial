@@ -3,6 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Helmet } from 'react-helmet-async';
+import Slider from 'react-slick';
+// Import Slick Carousel styles
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 const ProductDetailPage = () => {
   const { slug } = useParams();
@@ -33,6 +37,44 @@ const ProductDetailPage = () => {
   if (error) return <div>{error}</div>;
   if (!product) return <div>Product not found.</div>;
 
+  // Slider settings for react-slick with autoplay and animation
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 1100,          // Transition speed (ms)
+    autoplay: true,      // Enable autoplay
+    autoplaySpeed: 4000, // Time before auto-switch (ms)
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    adaptiveHeight: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          fade: true,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          fade: true,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          fade: true,
+        },
+      },
+    ],
+  };
+
   return (
     <div className="product-detail-page container">
       <Helmet>
@@ -40,8 +82,21 @@ const ProductDetailPage = () => {
       </Helmet>
       <div className="row align-items-center py-4">
         <div className="col-md-6">
-          {/* Use relative URL for the image */}
-          <img src={`/${product.image}`} alt={product.name} className="img-fluid" />
+          {product.images && product.images.length > 0 ? (
+            <Slider {...sliderSettings}>
+              {product.images.map((imgPath, index) => (
+                <div key={index}>
+                  <img
+                    src={`/${imgPath}`}
+                    alt={`${product.name} ${index + 1}`}
+                    className="img-fluid slider-image"
+                  />
+                </div>
+              ))}
+            </Slider>
+          ) : (
+            <p>No images available</p>
+          )}
         </div>
         <div className="col-md-6">
           <h1>{product.name}</h1>

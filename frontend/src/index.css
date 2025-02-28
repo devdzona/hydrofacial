@@ -383,3 +383,21 @@ button:focus-visible {
   align-items: center;
 }
 
+.slider-image {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+
+/* Adjust height on tablets and mobile */
+@media (max-width: 768px) {
+  .slider-image {
+    height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .slider-image {
+    height: 250px;
+  }
+}

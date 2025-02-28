@@ -52,11 +52,11 @@ router.get('/:slug', productLimiter, async (req, res) => {
   }
 });
 
-// POST a new product with input validation, file upload, and sanitization
+// POST a new product with input validation, multiple file upload, and sanitization
 router.post(
   '/',
   productLimiter,
-  upload.single('image'),
+  upload.array('images', 5), // Accept up to 5 images
   [
     body('name')
       .trim()
@@ -69,7 +69,6 @@ router.post(
     body('price')
       .isNumeric()
       .withMessage('Product price must be a number'),
-    // Removed body('image') validation since the image is handled by Multer
     body('category')
       .trim()
       .notEmpty()
@@ -82,19 +81,19 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    // Check if a file was uploaded
-    if (!req.file) {
-      return res.status(400).json({ message: 'Product image is required' });
+    // Check if files were uploaded
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({ message: 'At least one product image is required' });
     }
 
     const { name, description, price, category } = req.body;
-    const image = req.file.path; // Get the file path from Multer
+    const imagePaths = req.files.map(file => file.path); // Map uploaded files to their paths
 
     const newProduct = new Product({
       name,
       description,
       price,
-      image,
+      images: imagePaths,
       category,
     });
 
@@ -108,14 +107,14 @@ router.post(
   }
 );
 
-// PATCH update product by ID with optional image upload
-router.patch('/:id', productLimiter, upload.single('image'), async (req, res) => {
+// PATCH update product by ID with optional multiple image upload
+router.patch('/:id', productLimiter, upload.array('images', 5), async (req, res) => {
   const { id } = req.params;
   const updateData = { ...req.body };
 
-  // If a new image file is uploaded, update the image field
-  if (req.file) {
-    updateData.image = req.file.path;
+  // If new images are uploaded, update the images field
+  if (req.files && req.files.length > 0) {
+    updateData.images = req.files.map(file => file.path);
   }
 
   try {
