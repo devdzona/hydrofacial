@@ -52,17 +52,12 @@ const Header = () => {
                         <ul className="navbar-nav">
                             <li className="nav-item">
                                 <Link to="/" className="nav-link" onClick={() => setIsNavOpen(false)}>
-                                    Home
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link to="/about" className="nav-link" onClick={() => setIsNavOpen(false)}>
-                                    About
+                                    O nama
                                 </Link>
                             </li>
                             <li className="nav-item">
                                 <Link to="/products" className="nav-link" onClick={() => setIsNavOpen(false)}>
-                                    Products
+                                    Proizvodi
                                 </Link>
                             </li>
                         </ul>
