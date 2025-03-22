@@ -7,6 +7,7 @@ import Slider from 'react-slick';
 // Import Slick Carousel styles
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import ProductDescription from '../components/ProductDescription';
 
 const ProductDetailPage = () => {
   const { slug } = useParams();
@@ -104,7 +105,7 @@ const ProductDetailPage = () => {
               <h1 className="headline">{product.name}</h1>
               <h2 className="h5 text-muted">{product.price} KM</h2>
             </header>
-            <p className="lead">{product.description}</p>
+            <ProductDescription description={product.description} />
           </div>
         </div>
       </div>

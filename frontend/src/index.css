@@ -1,15 +1,10 @@
 :root {
-  /* Font & Basic settings */
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  /* Color scheme and background */
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
-
-  /* Font smoothing & rendering */
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -21,15 +16,17 @@ body {
   scroll-behavior: smooth;
   overflow-y: scroll;
   scrollbar-width: none;
-  /* Firefox */
   -ms-overflow-style: none;
-  /* IE 10+ */
 }
 
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
   width: 0;
   height: 0;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
 }
 
 
@@ -75,7 +72,6 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-/* Light mode overrides */
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -91,7 +87,6 @@ button:focus-visible {
   }
 }
 
-/* Logo hover effects */
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
@@ -100,7 +95,6 @@ button:focus-visible {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-/* Logo spin animation */
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
@@ -117,7 +111,6 @@ button:focus-visible {
   }
 }
 
-/* Cards and simple elements */
 .card {
   padding: 2em;
 }
@@ -126,7 +119,6 @@ button:focus-visible {
   color: #888;
 }
 
-/* Not Found Page */
 .not-found-page {
   display: flex;
   flex-direction: column;
@@ -138,7 +130,6 @@ button:focus-visible {
   color: #333;
 }
 
-/* Title and Message */
 .title {
   font-size: 6rem;
   margin: 0;
@@ -151,7 +142,6 @@ button:focus-visible {
   color: #555;
 }
 
-/* Header & Navigation */
 .header {
   position: sticky;
   top: 0;
@@ -174,7 +164,9 @@ button:focus-visible {
   transition: height 0.3s ease;
 }
 
-.header .navbar-toggler-icon {
+.header .navbar-toggler-icon,
+.header .navbar-toggler,
+.header .close-icon {
   font-size: 1.5rem;
 }
 
@@ -183,17 +175,10 @@ button:focus-visible {
   align-items: center;
   justify-content: center;
   color: currentColor;
-  font-size: 1.5rem;
   height: 46px;
   width: 62px;
 }
 
-.header .close-icon {
-  font-size: 1.5rem;
-  line-height: 1;
-}
-
-/* Navbar for Desktop & Mobile */
 .navbar-collapse {
   display: flex !important;
 }
@@ -219,14 +204,10 @@ button:focus-visible {
   }
 }
 
-/* Hero Teaser */
 .hero-teaser {
   width: 100vw;
-  /* Full viewport width */
   margin-left: calc(-50vw + 50%);
-  /* Centers the full-width element */
   height: 400px;
-  /* Adjust height as needed */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -276,7 +257,6 @@ button:focus-visible {
   }
 }
 
-/* Product List & Cards */
 .product-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(305px, 1fr));
@@ -295,7 +275,6 @@ button:focus-visible {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 16px;
   height: 400px;
-  /* Fixed height */
   overflow: hidden;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
@@ -305,7 +284,6 @@ button:focus-visible {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* Product Card - Image, Title, Description, Price */
 .product-card-image {
   width: 100%;
   height: 150px;
@@ -340,14 +318,12 @@ button:focus-visible {
   margin: 8px 0;
 }
 
-/* Link wrapping the product card */
 .product-card-link-wrapper {
   text-decoration: none;
   color: inherit;
   display: block;
 }
 
-/* Product Card - Link Button */
 .product-card a {
   display: inline-block;
   margin-top: 12px;
@@ -364,7 +340,6 @@ button:focus-visible {
   background-color: #0056b3;
 }
 
-/* Mobile adjustments for Product List */
 @media (max-width: 480px) {
   .product-list {
     display: flex;
@@ -385,48 +360,38 @@ button:focus-visible {
   }
 }
 
-/* Additional layout for card content */
 .product-card-content {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.slider-image {
-  width: 100%;
-  height: 400px;
-  object-fit: cover;
-}
-
-/* Adjust height on tablets and mobile */
-@media (max-width: 768px) {
-  .slider-image {
-    height: 300px;
-  }
-}
-
-@media (max-width: 480px) {
-  .slider-image {
-    height: 250px;
-  }
-}
-
-/* Ensures all images with .responsive-img class have the same fixed height and maintain a cover appearance */
+/* Consolidated image rules for slider and responsive images */
+.slider-image,
 .responsive-img {
   width: 100%;
-  height: 450px;
   object-fit: cover;
 }
 
-/* Adjust image height for tablets */
+.slider-image {
+  height: 400px;
+}
+
+.responsive-img {
+  height: 450px;
+}
+
 @media (max-width: 768px) {
+
+  .slider-image,
   .responsive-img {
     height: 300px;
   }
 }
 
-/* Adjust image height for mobile devices */
 @media (max-width: 480px) {
+
+  .slider-image,
   .responsive-img {
     height: 250px;
   }
@@ -439,7 +404,6 @@ button:focus-visible {
   object-fit: cover;
 }
 
-/* Desktop screens */
 @media (min-width: 1024px) {
 
   .img-fluid,
@@ -448,29 +412,43 @@ button:focus-visible {
   }
 }
 
-/* Tablet screens */
 @media (min-width: 768px) and (max-width: 1023px) {
 
   .img-fluid,
   .slick-slide img {
     height: 500px;
-    /* Adjust as needed */
   }
 }
 
-/* Mobile screens */
 @media (max-width: 767px) {
 
   .img-fluid,
   .slick-slide img {
     height: 300px;
-    /* Adjust as needed */
   }
 }
 
-/* Custom tablet-specific styling */
 @media (min-width: 768px) and (max-width: 1023px) {
   .tablet-height {
     min-height: 500px;
   }
+}
+
+.product-card-description-content {
+  font-size: 1.1rem;
+  text-align: left;
+  color: #666;
+  margin: 8px 0;
+  
+  white-space: pre-line;
+  /* Preserves line breaks */
+  overflow: visible;
+  /* Allow full content */
+  display: block;
+  /* Ensure full block display */
+}
+
+
+.product-card-description-content p {
+  margin-bottom: 1rem;
 }

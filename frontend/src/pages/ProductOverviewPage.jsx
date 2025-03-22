@@ -48,8 +48,8 @@ const ProductOverviewPage = () => {
             </Helmet>
             <HeroTeaser
                 image={HeroImage}
-                heading="Product overview"
-                subheading="This is page about our current products"
+                heading="Svi Proizvodi"
+                subheading="Izaberite nase najbolje proizvode"
             />
             <div className="product-list">
                 {products.map((product) => (

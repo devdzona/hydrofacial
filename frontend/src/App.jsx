@@ -8,6 +8,8 @@ import ProductOverviewPage from './pages/ProductOverviewPage';
 import NotFoundPage from './pages/NotFoundPage';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import '@fontsource/montserrat'; // Defaults to weight 400
+
 
 function App() {
   return (
@@ -39,8 +41,8 @@ function App() {
           <main className="flex-grow-1 container pb-4 pt-0">
             <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route path="/products/:slug" element={<ProductDetailPage />} />
-              <Route path="/products" element={<ProductOverviewPage />} />
+              <Route path="/proizvodi/:slug" element={<ProductDetailPage />} />
+              <Route path="/proizvodi" element={<ProductOverviewPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </main>
