@@ -5,16 +5,16 @@ import PropTypes from 'prop-types';
 
 const ProductCard = ({ product }) => {
     // Destructure product properties for clarity
-    const { slug, image, name, description, price } = product;
+    const { slug, images, name, description, price } = product;
 
     return (
-        <Link to={`/product/${slug}`} className="product-card-link-wrapper">
+        <Link to={`/products/${slug}`} className="product-card-link-wrapper">
             <div className="product-card">
-                <img src={image} alt={name} className="product-card-image" />
+                <img src={images[0]} alt={name} className="product-card-image" />
                 <h3 className="product-card-title">{name}</h3>
                 <div className="product-card-content">
                     <p className="product-card-description">{description}</p>
-                    <p className="product-card-price">${price}</p>
+                    <p className="product-card-price">{price} KM</p>
                 </div>
             </div>
         </Link>
@@ -28,7 +28,7 @@ ProductCard.propTypes = {
         name: PropTypes.string.isRequired,
         description: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
-        image: PropTypes.string.isRequired,
+        images: PropTypes.array.isRequired,
     }).isRequired,
 };
 

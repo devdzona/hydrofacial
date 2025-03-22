@@ -43,7 +43,7 @@ const ProductDetailPage = () => {
     infinite: true,
     speed: 1100,          // Transition speed (ms)
     autoplay: true,      // Enable autoplay
-    autoplaySpeed: 4000, // Time before auto-switch (ms)
+    autoplaySpeed: 3000, // Time before auto-switch (ms)
     slidesToShow: 1,
     slidesToScroll: 1,
     adaptiveHeight: true,
@@ -98,11 +98,14 @@ const ProductDetailPage = () => {
             <p>No images available</p>
           )}
         </div>
-        <div className="col-md-6">
-          <h1>{product.name}</h1>
-          <p className="text-muted">{product.category}</p>
-          <h2>${product.price}</h2>
-          <p>{product.description}</p>
+        <div className="col-sm-12 col-md-6 mt-4 mt-sm-0">
+          <div className="tablet-height p-3 p-md-4 d-flex flex-column justify-content-center">
+            <header className="mb-2 mb-md-3">
+              <h1 className="headline">{product.name}</h1>
+              <h2 className="h5 text-muted">{product.price} KM</h2>
+            </header>
+            <p className="lead">{product.description}</p>
+          </div>
         </div>
       </div>
     </div>

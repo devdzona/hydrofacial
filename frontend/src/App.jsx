@@ -39,7 +39,7 @@ function App() {
           <main className="flex-grow-1 container pb-4 pt-0">
             <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route path="/product/:slug" element={<ProductDetailPage />} />
+              <Route path="/products/:slug" element={<ProductDetailPage />} />
               <Route path="/products" element={<ProductOverviewPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
