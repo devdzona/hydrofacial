@@ -81,8 +81,18 @@ const ProductDetailPage = () => {
       <Helmet>
         <title>{product.name} | LUX SKIN Aparati</title>
       </Helmet>
-      <div className="row align-items-center py-4">
-        <div className="col-md-6">
+
+      {/* Top Full-Width Headline */}
+      <div className="row">
+        <div className="col-12 my-3 text-center">
+          <h1>{product.name}</h1>
+        </div>
+      </div>
+
+      {/* Two-Column Layout on Desktop, Stacked on Tablet/Mobile */}
+      <div className="row two-column pb-5">
+        {/* Left Column: Image Slider */}
+        <div className="col-12 col-lg-6">
           {product.images && product.images.length > 0 ? (
             <Slider {...sliderSettings}>
               {product.images.map((imgPath, index) => (
@@ -99,14 +109,25 @@ const ProductDetailPage = () => {
             <p>No images available</p>
           )}
         </div>
-        <div className="col-sm-12 col-md-6 mt-4 mt-sm-0">
-          <div className="tablet-height p-3 p-md-4 d-flex flex-column justify-content-center">
-            <header className="mb-2 mb-md-3">
-              <h1 className="headline">{product.name}</h1>
-              <h2 className="h5 text-muted">{product.price} KM</h2>
-            </header>
-            <ProductDescription description={product.description} />
+
+        {/* Right Column: Product Details */}
+        <div className="col-12 col-lg-6">
+          {/* Desktop: Inline Price and "Add to Cart" button */}
+          <div className="d-none d-lg-flex justify-content-between align-items-center mb-3">
+            <p className="fs-3 fw-bold mb-0 price">{product.price} KM</p>
+            <button className="btn btn-dark btn-lg add-to-cart">
+              Naruci odmah
+            </button>
           </div>
+          {/* Mobile/Tablet: Stack Price and Button Vertically */}
+          <div className="d-block d-lg-none text-center mb-3 mt-4 price-cart">
+            <p className="fs-3 fw-bold price">{product.price} KM</p>
+            <button className="btn btn-dark btn-lg add-to-cart">
+              Naruci odmah
+            </button>
+          </div>
+          {/* Product Description */}
+          <ProductDescription description={product.description} />
         </div>
       </div>
     </div>

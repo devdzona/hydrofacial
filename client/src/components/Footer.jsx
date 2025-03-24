@@ -13,8 +13,7 @@ const Footer = () => {
                     </div>
                     {/* Center column */}
                     <div className="col-md-4 mb-3 mb-md-0">
-                        Radujemo se što ćemo biti deo vašeg uspeha!<br />
-                        Vaši, LUX SKIN APARATI
+                        Radujemo se što ćemo biti deo vašeg uspeha!
                     </div>
                     {/* Right column */}
                     <div className="col-md-4">
